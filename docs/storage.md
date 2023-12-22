@@ -1,8 +1,12 @@
-# Configuring Storage Backends
+---
+title: Configuring storage backends 
+excerpt: Customizing the MemGPT storage backend
+category: 6580d34ee5e4d00068bf2a1d 
+---
 
-!!! warning "Switching storage backends"
-
-    MemGPT can only use one storage backend at a time. If you switch from local to database storage, you will need to re-load data and start agents from scratch. We currently do not support migrating between storage backends.
+> ⚠️ Switching storage backends
+>
+> MemGPT can only use one storage backend at a time. If you switch from local to database storage, you will need to re-load data and start agents from scratch. We currently do not support migrating between storage backends.
 
 MemGPT supports both local and database storage for archival memory. You can configure which storage backend to use via `memgpt configure`. For larger datasets, we recommend using a database backend.
 
@@ -19,10 +23,6 @@ pip install 'pymemgpt[postgres]'
 You will need to have a URI to a Postgres database which support [pgvector](https://github.com/pgvector/pgvector). You can either use a [hosted provider](https://github.com/pgvector/pgvector/issues/54) or [install pgvector](https://github.com/pgvector/pgvector#installation).
 
 ## Chroma
-To enable the Chroma storage backend, install the dependencies with: 
-```
-pip install `pymemgpt[chroma]`
-```
 You can configure Chroma with both the HTTP and persistent storage client via `memgpt configure`. You will need to specify either a persistent storage path or host/port dependending on your client choice. The example below shows how to configure Chroma with local persistent storage: 
 ```
 ? Select LLM inference provider: openai
@@ -38,10 +38,6 @@ You can configure Chroma with both the HTTP and persistent storage client via `m
 ```
 
 ## LanceDB
-To enable the LanceDB backend, make sure to install the required dependencies with:
-```
-pip install 'pymemgpt[lancedb]'
-```
 You have to enable the LanceDB backend by running 
  ```
  memgpt configure
