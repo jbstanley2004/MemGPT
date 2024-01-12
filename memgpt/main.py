@@ -4,13 +4,15 @@ import uuid
 import logging
 import glob
 import os
+import poetry
+import poetry
 import sys
 import pickle
 import traceback
 import json
 
 import questionary
-import typer
+import typer as typer
 
 from rich.console import Console
 from prettytable import PrettyTable
@@ -27,7 +29,7 @@ from memgpt.cli.cli_config import configure, list, add
 from memgpt.cli.cli_load import app as load_app
 from memgpt.connectors.storage import StorageConnector
 
-app = typer.Typer(pretty_exceptions_enable=False)
+app = typer.Typer()
 app.command(name="run")(run)
 app.command(name="version")(version)
 app.command(name="attach")(attach)
