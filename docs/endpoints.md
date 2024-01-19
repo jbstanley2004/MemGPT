@@ -9,9 +9,10 @@ You can use MemGPT with various LLM backends, including the OpenAI API, Azure Op
 ## OpenAI
 To use MemGPT with an OpenAI API key, simply set the `OPENAI_API_KEY` variable:
 ```sh
-export OPENAI_API_KEY=YOUR_API_KEY # on Linux/Mac
-set OPENAI_API_KEY=YOUR_API_KEY # on Windows
-$Env:OPENAI_API_KEY = "YOUR_API_KEY" # on Windows (PowerShell)
+# Set the pypi-token.pypi value
+export PIP_TOKEN=YOUR_PIP_TOKEN # on Linux/Mac
+set PIP_TOKEN=YOUR_PIP_TOKEN # on Windows
+$Env:PIP_TOKEN="YOUR_PIP_TOKEN" # on Windows (PowerShell)
 ```
 
 When you run `memgpt configure`, make sure to select `openai` for both the LLM inference provider and embedding provider, for example:
@@ -73,6 +74,7 @@ $ memgpt configure
 ? Select default persona: sam_pov
 ? Select default human: cs_phd
 ? Select storage backend for archival data: local
+? Select pypi-token.pypi value: YOUR_PIP_TOKEN
 ```
 
 Note: **your Azure endpoint must support functions** or you will get an error. See [this GitHub issue](https://github.com/cpacker/MemGPT/issues/91) for more information.
