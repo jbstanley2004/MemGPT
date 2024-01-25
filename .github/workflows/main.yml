@@ -25,4 +25,5 @@ jobs:
 
     - name: Run main.py with input
       run: |
-        echo -e "\n\n\nn" | python main.py
+        echo -e "\n\n\nn" | poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }} 
+python main.py
