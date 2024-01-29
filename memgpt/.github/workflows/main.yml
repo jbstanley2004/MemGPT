@@ -1,0 +1,65 @@
+import shutil
+import configparser
+import uuid
+import logging
+import glob
+import os
+
+def update_github_actions_config():
+    file_path = "memgpt/.github/workflows/main.yml"
+
+    # Read the existing file
+    with open(file_path, "r") as file:
+        lines = file.readlines()
+
+    # Add the pypi-token.pypi setting
+    lines.append("pypi-token.pypi: ${{ secrets.PYPI_TOKEN }}\n")
+
+    # Modify line 15 to include the new configuration
+    lines[14] = "- name: Set up Python\n"
+    lines[15] = "  uses: actions/setup-python@v2\n"
+    lines[16] = "  with:\n"
+    lines[17] = "    python-version: 3.8\n"
+    lines[18] = "    pypi-token.pypi: ${{ secrets.PYPI_TOKEN }}\n"
+
+    # Write the updated file
+    with open(file_path, "w") as file:
+        file.writelines(lines)
+
+# Run the function to update the GitHub Actions configuration
+update_github_actions_config()
+```
+
+Unit tests:
+```python
+import unittest
+from unittest.mock import mock_open, patch
+
+class TestUpdateGitHubActionsConfig(unittest.TestCase):
+    @patch("builtins.open", new_callable=mock_open, read_data="existing content")
+    def test_update_github_actions_config(self, mock_file):
+        # Mock the file path
+        file_path = "memgpt/.github/workflows/main.yml"
+
+        # Call the function
+        update_github_actions_config()
+
+        # Assert that the file was opened for reading
+        mock_file.assert_called_once_with(file_path, "r")
+
+        # Assert that the file was opened for writing
+        mock_file.assert_called_with(file_path, "w")
+
+        # Assert that the file was written with the correct content
+        mock_file().writelines.assert_called_once_with([
+            "existing content",
+            "pypi-token.pypi: ${{ secrets.PYPI_TOKEN }}\n",
+            "- name: Set up Python\n",
+            "  uses: actions/setup-python@v2\n",
+            "  with:\n",
+            "    python-version: 3.8\n",
+            "    pypi-token.pypi: ${{ secrets.PYPI_TOKEN }}\n"
+        ])
+
+if __name__ == "__main__":
+    unittest.main()
