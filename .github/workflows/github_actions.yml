@@ -1,0 +1,33 @@
+.github/workflows/github_actions.yml:
+
+name: GitHub Actions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set PyPI token
+        run: |
+          TOKEN=$${{ secrets.pypi-token.pypi }}
+          echo "::set-env name=PYPI_TOKEN::$TOKEN"
+
+      - name: Modify poetry command
+        run: |
+          sed -i "s/poetry install/poetry config pypi-token.pypi $PYPI_TOKEN \&\& poetry install/" pyproject.toml
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Run tests
+        run: |
+          poetry run pytest
